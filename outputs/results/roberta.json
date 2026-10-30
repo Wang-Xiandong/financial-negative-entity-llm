@@ -1,0 +1,46 @@
+{
+  "method": "hfl/chinese-roberta-wwm-ext 句对微调",
+  "args": {
+    "model": "hfl/chinese-roberta-wwm-ext",
+    "tag": "roberta",
+    "max_len": 512,
+    "epochs": 3,
+    "lr": 2e-05,
+    "bs": 32,
+    "warmup": 0.1,
+    "seed": 42,
+    "debug": 0
+  },
+  "threshold": 0.35,
+  "use_rule": true,
+  "val": {
+    "F1": 0.9411,
+    "F1_s": 0.9623,
+    "P_s": 0.9721,
+    "R_s": 0.9527,
+    "F1_e": 0.9269,
+    "P_e": 0.9302,
+    "R_e": 0.9237
+  },
+  "test@0.5": {
+    "F1": 0.9273,
+    "F1_s": 0.9531,
+    "P_s": 0.9519,
+    "R_s": 0.9542,
+    "F1_e": 0.9101,
+    "P_e": 0.9017,
+    "R_e": 0.9186
+  },
+  "test": {
+    "F1": 0.9258,
+    "F1_s": 0.952,
+    "P_s": 0.9475,
+    "R_s": 0.9566,
+    "F1_e": 0.9084,
+    "P_e": 0.8909,
+    "R_e": 0.9266
+  },
+  "train_time_s": 170.7,
+  "infer_ms_per_1k_pairs": 2017.1,
+  "peak_gpu_mem_gb": 7.72
+}

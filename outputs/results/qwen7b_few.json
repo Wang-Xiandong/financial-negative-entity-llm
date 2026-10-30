@@ -1,0 +1,42 @@
+{
+  "method": "Qwen2.5-7B-Instruct | shots=4 | adapter=None",
+  "args": {
+    "model": "/root/autodl-tmp/models/Qwen2.5-7B-Instruct",
+    "tag": "qwen7b_few",
+    "shots": 4,
+    "adapter": null,
+    "split": "test",
+    "bs": 16,
+    "max_new": 64,
+    "limit": 0
+  },
+  "test": {
+    "F1": 0.8099,
+    "F1_s": 0.9293,
+    "P_s": 0.8951,
+    "R_s": 0.9663,
+    "F1_e": 0.7302,
+    "P_e": 0.7751,
+    "R_e": 0.6903
+  },
+  "test+rule": {
+    "F1": 0.8118,
+    "F1_s": 0.9293,
+    "P_s": 0.8951,
+    "R_s": 0.9663,
+    "F1_e": 0.7335,
+    "P_e": 0.7913,
+    "R_e": 0.6836
+  },
+  "output_status": {
+    "ok": 0.597,
+    "none": 0.3935,
+    "loose": 0.0067,
+    "invalid": 0.0027
+  },
+  "invalid_ratio": 0.0027,
+  "hallucination_ratio": 0.0191,
+  "infer_time_s": 213.7,
+  "infer_ms_per_1k_texts": 287970.2,
+  "peak_gpu_mem_gb": 20.55
+}

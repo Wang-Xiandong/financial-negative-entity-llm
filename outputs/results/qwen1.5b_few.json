@@ -1,0 +1,42 @@
+{
+  "method": "Qwen2.5-1.5B-Instruct | shots=4 | adapter=None",
+  "args": {
+    "model": "/root/autodl-tmp/models/Qwen2.5-1.5B-Instruct",
+    "tag": "qwen1.5b_few",
+    "shots": 4,
+    "adapter": null,
+    "split": "test",
+    "bs": 16,
+    "max_new": 64,
+    "limit": 0
+  },
+  "test": {
+    "F1": 0.6805,
+    "F1_s": 0.7576,
+    "P_s": 0.6272,
+    "R_s": 0.9566,
+    "F1_e": 0.6291,
+    "P_e": 0.5368,
+    "R_e": 0.7597
+  },
+  "test+rule": {
+    "F1": 0.689,
+    "F1_s": 0.7576,
+    "P_s": 0.6272,
+    "R_s": 0.9566,
+    "F1_e": 0.6432,
+    "P_e": 0.5659,
+    "R_e": 0.745
+  },
+  "output_status": {
+    "ok": 0.8437,
+    "none": 0.1442,
+    "loose": 0.0094,
+    "invalid": 0.0027
+  },
+  "invalid_ratio": 0.0027,
+  "hallucination_ratio": 0.0527,
+  "infer_time_s": 71.0,
+  "infer_ms_per_1k_texts": 95723.0,
+  "peak_gpu_mem_gb": 5.92
+}

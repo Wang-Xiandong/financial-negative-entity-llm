@@ -1,0 +1,21 @@
+# Python / 编辑器
+__pycache__/
+*.pyc
+.venv/
+.idea/
+.vscode/
+
+# 比赛原始数据及其衍生数据：版权属于比赛方，不重新分发，按 README 自行下载后运行 prepare_data.py 生成
+Train_Data.csv
+Test_Data.csv
+Submit_Example.csv
+data/
+
+# 模型权重：单个文件超过 GitHub 100MB 上限，可按 README 的命令重新训练
+outputs/models/
+outputs/checkpoints/
+outputs/llm/**/adapter_model.safetensors
+outputs/llm/**/checkpoint-*/
+outputs/llm/trial/
+*.bin
+*.pt

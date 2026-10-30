@@ -1,0 +1,46 @@
+{
+  "method": "bert-base-chinese 句对微调",
+  "args": {
+    "model": "bert-base-chinese",
+    "tag": "bert",
+    "max_len": 512,
+    "epochs": 3,
+    "lr": 2e-05,
+    "bs": 32,
+    "warmup": 0.1,
+    "seed": 42,
+    "debug": 0
+  },
+  "threshold": 0.4,
+  "use_rule": true,
+  "val": {
+    "F1": 0.9409,
+    "F1_s": 0.9676,
+    "P_s": 0.97,
+    "R_s": 0.9652,
+    "F1_e": 0.9232,
+    "P_e": 0.9213,
+    "R_e": 0.9251
+  },
+  "test@0.5": {
+    "F1": 0.9263,
+    "F1_s": 0.9512,
+    "P_s": 0.939,
+    "R_s": 0.9639,
+    "F1_e": 0.9097,
+    "P_e": 0.8984,
+    "R_e": 0.9212
+  },
+  "test": {
+    "F1": 0.9258,
+    "F1_s": 0.9502,
+    "P_s": 0.9347,
+    "R_s": 0.9663,
+    "F1_e": 0.9096,
+    "P_e": 0.8932,
+    "R_e": 0.9266
+  },
+  "train_time_s": 171.3,
+  "infer_ms_per_1k_pairs": 2021.4,
+  "peak_gpu_mem_gb": 7.72
+}

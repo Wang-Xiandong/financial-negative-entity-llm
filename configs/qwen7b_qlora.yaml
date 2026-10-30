@@ -1,0 +1,49 @@
+# LLaMA-Factory 训练配置：Qwen2.5-7B-Instruct + QLoRA（4-bit 量化 + LoRA）做 SFT
+# 在 Project_NLP 目录下运行：llamafactory-cli train configs/qwen7b_qlora.yaml
+# 小规模试跑（先确认显存和速度）：在命令后面追加 max_samples=200 num_train_epochs=1 output_dir=outputs/llm/trial
+
+### 模型
+model_name_or_path: /root/autodl-tmp/models/Qwen2.5-7B-Instruct
+quantization_bit: 4                 # QLoRA 的 Q：冻结的原始权重以 4-bit 存储（7B 约 5GB，bf16 要 15GB）
+quantization_method: bnb            # 用 bitsandbytes 做量化（NF4）
+
+### 方法
+stage: sft                          # 有监督微调：只在答案（output）部分计算 next-token 交叉熵
+do_train: true
+finetuning_type: lora
+lora_target: all                    # 给所有线性层（q/k/v/o 和 FFN 的 gate/up/down）都加 LoRA
+lora_rank: 16                       # 低秩矩阵的秩 r：ΔW = B(d×r)·A(r×d)
+lora_alpha: 32                      # 缩放系数，实际更新量是 (alpha/r)·B·A，常取 2r
+lora_dropout: 0.05
+
+### 数据
+dataset_dir: data/llm               # 里面的 dataset_info.json 定义了 bdci_train / bdci_val
+dataset: bdci_train
+eval_dataset: bdci_val
+template: qwen                      # 对话模板，必须和推理时 tokenizer.apply_chat_template 一致
+cutoff_len: 1536                    # 提示 + 答案最多 1536 token（文本已截到 1000 字，足够）
+overwrite_cache: true
+preprocessing_num_workers: 8
+
+### 输出
+output_dir: outputs/llm/qwen7b_qlora   # 只保存 LoRA 权重（几十 MB），不保存整个 7B 模型
+logging_steps: 10
+save_strategy: epoch
+plot_loss: true                     # 训练完画 loss 曲线 training_loss.png
+overwrite_output_dir: true
+report_to: none
+
+### 训练
+per_device_train_batch_size: 4
+gradient_accumulation_steps: 4      # 累积 4 步再更新一次 → 等效 batch = 16
+learning_rate: 1.0e-4               # LoRA 的学习率比全量微调（BERT 用 2e-5）大一个量级：要训练的参数少、从零开始
+num_train_epochs: 2.0
+lr_scheduler_type: cosine
+warmup_steps: 0.1                   # 前 10% 的步数做学习率预热；transformers 5 里小于 1 的小数表示比例（warmup_ratio 已弃用）
+
+bf16: true
+gradient_checkpointing: true        # 用时间换显存：反向传播时重新计算部分激活值
+
+### 评估（只看 val loss，官方指标用 src/llm_infer.py 算）
+per_device_eval_batch_size: 4
+eval_strategy: epoch
