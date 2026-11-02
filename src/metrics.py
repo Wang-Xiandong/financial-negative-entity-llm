@@ -95,7 +95,7 @@ def _prf(tp, fp, fn):
     p = tp / (tp + fp) if tp + fp else 0.0
     r = tp / (tp + fn) if tp + fn else 0.0
     f = 2 * p * r / (p + r) if p + r else 0.0
-    return p, r, f
+    return p, r, f #返回元组
 
 
 def official_score(gold, pred):
@@ -108,6 +108,7 @@ def official_score(gold, pred):
         F1  = 0.4 * F1_s + 0.6 * F1_e
     """
     # 按 id 对齐两张表；validate 保证 id 一一对应，否则直接报错（和官方要求一致）
+    # validate只检查每张表内部的 id 是否重复
     m = gold.merge(pred, on="id", suffixes=("_g", "_p"), validate="one_to_one")
     assert len(m) == len(gold), "预测结果缺少部分 id"
 
